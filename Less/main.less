@@ -1,6 +1,22 @@
+@import 'normalize.less';
 @import 'variables.less';
 
 body {
-  background: @bgColor;
-  color     : @txtColor;
+  background : @bgColor;
+  color      : @txtColor;
+  font-family: 'Open Sans', sans-serif;
+}
+ /* SlideShow Main Styles*/
+.slideShow {
+  background: white;
+  border    : 3px solid black;
+  display   : block;
+  height    : @slideShow-height;
+  margin    : inherit auto;
+  overflow  : hidden;
+  width     : @slideShow-width;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 }
