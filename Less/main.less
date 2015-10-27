@@ -12,15 +12,14 @@ body {
 }
  /* SlideShow Main Styles*/
 .slideShow {
-  align-items: stretch ;
-  background : @itemBackground;
-  box-shadow : #777 0 0 2px;
-  display    : flex;
-  flex-flow  : column nowrap;
-  margin     : 0 auto;
-  max-width  : @slideShow-width;
-  overflow   : hidden;
-  position   : relative;
+  background: @itemBackground;
+  box-shadow: #777 0 0 2px;
+  display   : block;
+  margin    : 0 auto;
+  max-width : @slideShow-width;
+  min-height: @slideShow-height;
+  overflow  : hidden;
+  position  : relative;
   ul {
     list-style: none;
     margin    : 0;
@@ -29,8 +28,9 @@ body {
 }
 
 .slideShow__item {
-  flex      : 1 1 auto;
-  width     : 35%;
+  align-content: stretch;
+  display      : flex;
+  flex-flow    : column wrap;
   input {
     display: none;
   }
@@ -47,26 +47,28 @@ body {
 
 
 .slideShow__label {
-  background    : @labelColor;
-  border-bottom : 1px solid rgba(0,0,0,.1);
-  box-sizing    : border-box;
-  color         : white;
-  display       : block;
-  padding-bottom: 1.5em;
-  padding-left  : 1em;
-  padding-top   : .5em;
-  position      : relative;
-  z-index       : 3;
+  background   : fade(@labelColor, 80);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  box-sizing   : border-box;
+  color        : white;
+  display      : block;
+  flex         :none;
+  min-height   : 5em;
+  padding      : .8em 0 .8em .8em;
+  position     : relative;
+  width        : 35%;
+  z-index      : 3;
   &::after {
-    content: '';
-    width: 0;
-    height: 0;
-    right: -2em;
-    top: 0;
-    position: absolute;
-    border-top: 2.35em solid transparent;
-    border-left: 2em solid @labelColor;
-    border-bottom: 2.35em solid transparent;
+    border-bottom: 2.5em solid transparent;
+    border-left  : 2em solid fade(@labelColor, 80);
+    border-top   : 2.5em solid transparent;
+    box-sizing   : border-box;
+    content      : '';
+    font-size    : 1em;
+    height       : 100%;
+    position     : absolute;
+    right        : -2em;
+    top          : 0;
   }
   &:hover {
     background: @labelHover;
@@ -96,26 +98,92 @@ body {
   font-weight   : 700;
   line-height   : 1;
   padding       : 0;
-  text-align    : center;
+  text-align    : left;
   text-shadow   : @txtColor 1px 1px 1px;
   text-transform: uppercase;
 }
 .slideShow__desc {
+  font-size  : .8em;
   font-weight: 400;
-  text-align: justify;
-  font-size: .8em;
+  text-align : justify;
 }
 .slideShow-item-check:checked + .slideShow_cont {
   opacity: 1;
   z-index: 1;
 }
 .slideShow_cont {
-  bottom    : 0;
-  left      : 40%;
-  opacity   : 0;
-  position  : absolute;
-  right     : 0;
-  top       : 0;
-  transition: opacity 1s;
-  z-index   : -1;
+  bottom      : 0;
+  left        : 0;
+  min-height  : @slideShow-height;
+  opacity     : 0;
+  padding-left: 40%;
+  position    : absolute;
+  right       : 0;
+  top         : 0;
+  transition  : opacity 1s;
+  z-index     : -1;
+}
+
+.slideShow__cont--title {
+  color      : @txtColor;
+  font-family: serif;
+  font-size  : 2em;
+  line-height: 1;
+  margin     : .25em;
+  padding    : 0;
+  text-align : right;
+  text-shadow: #DDD -2px 2px .5em,
+  #fff 0 0 1px;
+}
+
+.slideShow__content {
+  background: fade(@txtColor, 25);
+  color     : white;
+  padding   : .4em;
+}
+
+// Personalized images for background
+.background-image-1,
+  .background-image-2,
+  .background-image-3,
+  .background-image-4,
+  .background-image-5 {
+    background: @itemBackground none top right no-repeat;
+    background-size: cover;
+  }
+.background-image-1 {
+  background-image: url('./images/background/1.jpg')
+}
+.background-image-2 {
+  background-image: url('./images/background/2.jpg')
+}
+.background-image-3 {
+  background-image: url('./images/background/3.jpg')
+}
+.background-image-4 {
+  background-image: url('./images/background/4.jpg')
+}
+.background-image-5 {
+  background-image: url('./images/background/5.jpg')
+}
+
+// Utilities
+a {
+  text-decoration: none;
+}
+.btn {
+  background    : @btnColor;
+  border-radius : 3px;
+  box-shadow    : @btnShadow 2px 2px 4px;
+  color         : @btnText;
+  display       : inline-block;
+  padding       : .8em 1em;
+  text-align    : center;
+  text-transform: uppercase;
+}
+.slideShow__action {
+  bottom  : 1em;
+  opacity : .8;
+  position: absolute;
+  right   : 1em;
 }
