@@ -5,18 +5,117 @@ body {
   background : @bgColor;
   color      : @txtColor;
   font-family: 'Open Sans', sans-serif;
+  font-size  : @fsize;
+  margin     : 0 auto;
+  max-width  : 100%;
+  width      : 1200px;
 }
  /* SlideShow Main Styles*/
 .slideShow {
-  background: white;
-  border    : 3px solid black;
-  display   : block;
-  height    : @slideShow-height;
-  margin    : inherit auto;
-  overflow  : hidden;
-  width     : @slideShow-width;
+  align-items: stretch ;
+  background : @itemBackground;
+  box-shadow : #777 0 0 2px;
+  display    : flex;
+  flex-flow  : column nowrap;
+  margin     : 0 auto;
+  max-width  : @slideShow-width;
+  overflow   : hidden;
+  position   : relative;
   ul {
     list-style: none;
-    padding: 0;
+    margin    : 0;
+    padding   : 0;
   }
+}
+
+.slideShow__item {
+  flex      : 1 1 auto;
+  width     : 35%;
+  input {
+    display: none;
+  }
+}
+
+
+
+.slideShow__item +
+.slideShow__item .slideShow__label {
+  border-top: 1px solid rgba(255,255,255,.3);
+}
+
+
+
+
+.slideShow__label {
+  background    : @labelColor;
+  border-bottom : 1px solid rgba(0,0,0,.1);
+  box-sizing    : border-box;
+  color         : white;
+  display       : block;
+  padding-bottom: 1.5em;
+  padding-left  : 1em;
+  padding-top   : .5em;
+  position      : relative;
+  z-index       : 3;
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    right: -2em;
+    top: 0;
+    position: absolute;
+    border-top: 2.35em solid transparent;
+    border-left: 2em solid @labelColor;
+    border-bottom: 2.35em solid transparent;
+  }
+  &:hover {
+    background: @labelHover;
+    &::after {
+      border-left-color: @labelHover;
+    }
+  }
+  &:active {
+    background: @labelSelect;
+    &::after {
+      border-left-color: @labelSelect;
+    }
+  }
+}
+
+
+
+
+.slideShow__title,
+.slideShow__desc {
+  margin: 0;
+  color: @txtColor;
+}
+.slideShow__title {
+  color         : white;
+  font-size     : 1.2em;
+  font-weight   : 700;
+  line-height   : 1;
+  padding       : 0;
+  text-align    : center;
+  text-shadow   : @txtColor 1px 1px 1px;
+  text-transform: uppercase;
+}
+.slideShow__desc {
+  font-weight: 400;
+  text-align: justify;
+  font-size: .8em;
+}
+.slideShow-item-check:checked + .slideShow_cont {
+  opacity: 1;
+  z-index: 1;
+}
+.slideShow_cont {
+  bottom    : 0;
+  left      : 40%;
+  opacity   : 0;
+  position  : absolute;
+  right     : 0;
+  top       : 0;
+  transition: opacity 1s;
+  z-index   : -1;
 }
