@@ -12,27 +12,27 @@ body {
 }
  /* SlideShow Main Styles*/
 .slideShow {
-  background: @itemBackground;
-  box-shadow: #777 0 0 2px;
-  display   : block;
-  margin    : 0 auto;
-  max-width : @slideShow-width;
-  min-height: @slideShow-height;
-  overflow  : hidden;
-  position  : relative;
-  ul {
+  background: @itemBackground; // Fondo del slide general
+  box-shadow: #777 0 0 2px; // Pequeña sombra
+  display   : block; // Display block, porque no estoy usando normalize
+  margin    : 0 auto; // margen superior e inferior = 0, y centrado horizontal
+  max-width : @slideShow-width; // tamaño máximo declarado por variable
+  min-height: @slideShow-height; // tamaño mínimo de altura por variable, si lo sobrepasa por contenido no afecta
+  overflow  : hidden; // lo que salga del cuadro general no es visible
+  position  : relative; // Position relative para poder manipular objetos absolutos adentro
+  ul { // Reset de la lista interna
     list-style: none;
     margin    : 0;
     padding   : 0;
   }
 }
 
-.slideShow__item {
-  align-content: stretch;
-  display      : flex;
-  flex-flow    : column wrap;
+.slideShow__item { // cada Item, usando flexbox para los labels (flechas de la izquierda)
+  align-content: stretch; // el contenido se estira para ocupar el espacio disponible
+  display      : flex; // Uso de Flexbox
+  flex-flow    : column wrap; // Organizado por columnas y con saltos de línea
   input {
-    display: none;
+    display: none; // Ocultamos el input de tipo radio
   }
 }
 
@@ -41,87 +41,93 @@ body {
 .slideShow__item +
 .slideShow__item .slideShow__label {
   border-top: 1px solid rgba(255,255,255,.3);
+  // Un bonito efecto 3d en las etiquetas, solo el elemento precedido por uno igual obtiene un borde superior semitransparente blanco. Parte 1/2
 }
 
 
 
 
 .slideShow__label {
-  background   : fade(@labelColor, 80);
+  background   : fade(@labelColor, 80); // fondo semitransparente (Fade es una propiedad de LESS que traduce a css en rgba)
   border-bottom: 1px solid rgba(0,0,0,.1);
-  box-sizing   : border-box;
-  color        : white;
-  display      : block;
-  flex         :none;
-  min-height   : 5em;
-  padding      : .8em 0 .8em .8em;
-  position     : relative;
-  width        : 35%;
-  z-index      : 3;
+  // Un bonito efecto 3d en las etiquetas, Un borde inferior semitransparente negro, que junto al blanco anteriormente declarado crean este efecto. Parte 2/2
+  box-sizing   : border-box; // Que sume los margenes internos y externos y los considere en el ancho
+  color        : white; // Color de letra por default blanco.
+  display      : block; // Cuestion de CSS, al no usar reset o normalize
+  flex         : none; // En este caso desactivo flex para que me respete el ancho de 35%
+  min-height   : 5em; // Ancho mínimo de 5em, en caso de que no tenga el contenido suficiente
+  padding      : .8em 0 .8em .8em; // Margenes internos
+  width        : 35%; // Ancho de 35% referente al padre
+  z-index      : 3; // Z index es posicionar los elementos atras o adelante, para poder aprovechar mejor el position: absolute de los elementos.
   &::after {
-    border-bottom: 2.5em solid transparent;
-    border-left  : 2em solid fade(@labelColor, 80);
-    border-top   : 2.5em solid transparent;
-    box-sizing   : border-box;
-    content      : '';
-    font-size    : 1em;
-    height       : 100%;
-    position     : absolute;
-    right        : -2em;
-    top          : 0;
+    // Todas estas propiedades son para crear mediante CSS las flechas
+    border-bottom: 2.5em solid transparent;  // Borde inferior de la mitad de la altura del elemento transparente.
+    border-left  : 2em solid fade(@labelColor, 80); // Borde izquierdo, esto es lo que se vé como flecha.
+    border-top   : 2.5em solid transparent; // Borde superior de la mitad de la altura del elemento transparente.
+    border-right: none; // Al no haber borde derecho, el izquierdo toma todo el ancho, formando la flecha.
+    box-sizing   : border-box; // Nos aseguramos que no sobrepase el ancho deseado.
+    content      : ''; // content: ''. Es completamente Necesario en los elementos before y after
+    font-size    : 1em; // Nos aseguramos que herede el tamaño del padre.
+    height       : 100%; // Alto de 100%, para que los bordes funcionen mejor
+    position     : absolute; // position absolute para posicionarlo referente a la etiqueta.
+    right        : -2em; // a la derecha a -2em que es el ancho del borde.
+    top          : 0; // Posicion 0 arriba
   }
   &:hover {
-    background: @labelHover;
+    background: @labelHover; // al poner el mouse encima toma este color
     &::after {
-      border-left-color: @labelHover;
+      border-left-color: @labelHover; // y la flecha también toma este color
     }
   }
   &:active {
-    background: @labelSelect;
+    background: @labelSelect; // al dar click toma este color
     &::after {
-      border-left-color: @labelSelect;
+      border-left-color: @labelSelect; // .. junto con la flecha
     }
   }
 }
 
 
 
-
+// Aqui estilizamos las etiquetas con flecha
 .slideShow__title,
 .slideShow__desc {
-  margin: 0;
-  color: @txtColor;
+  margin: 0; // El título y la descripción sin los márgenes por default
+  color: @txtColor; // El color por medio de variable
 }
 .slideShow__title {
-  color         : white;
-  font-size     : 1.2em;
-  font-weight   : 700;
-  line-height   : 1;
-  padding       : 0;
-  text-align    : left;
-  text-shadow   : @txtColor 1px 1px 1px;
-  text-transform: uppercase;
+  color         : white; // El color del título blanco
+  font-size     : 1.2em; // Tamaño de letra mas grande
+  font-weight   : 700; // El peso de la fuente mas gruesa
+  line-height   : 1; // Alto de linea de 1 ( Los h1, h2, h3... toman otra propiedad por defecto en algunos navegadores)
+  padding       : 0; // Sin margen interior (toman un valor por defecto en algunos navs)
+  text-align    : left; // Alineado a la izquierda
+  text-shadow   : @txtColor 1px 1px 1px; // Un bonito efecto 3D en la fuente
+  text-transform: uppercase; // Mayúsculas (Puedes estilizar: MAYUS, minus, Capitales)
 }
 .slideShow__desc {
-  font-size  : .8em;
-  font-weight: 400;
-  text-align : justify;
+  font-size  : .8em; // Texto mas chico
+  font-weight: 400; // Peso normal
+  text-align : justify; // Texto justificado
 }
 .slideShow-item-check:checked + .slideShow_cont {
-  opacity: 1;
-  z-index: 1;
+  // Al seleccionar
+  opacity: 1; // Opacidad al 100%
+  z-index: 1; // Traer al frente
 }
 .slideShow_cont {
+  // El contenido del tab, con posicion absoluta, referente al padre.
+  // Con bottom, left, right, y top a 0, ocupas el ancho y alto del elemento padre
   bottom      : 0;
   left        : 0;
-  min-height  : @slideShow-height;
-  opacity     : 0;
-  padding-left: 40%;
+  min-height  : @slideShow-height; // Alto mínimo el mismo al padre
+  opacity     : 0; // Opacidad 0 por default
+  padding-left: 40%; // Del lado izquierdo un margen interno del 40% (ancho del tab mas flecha)
   position    : absolute;
   right       : 0;
   top         : 0;
-  transition  : opacity 1s;
-  z-index     : -1;
+  transition  : opacity 1s; // Transición en opacity con duración de 1 segundo
+  z-index     : -1; // Ubicación default -1, es decir no visible, debajo del body
 }
 
 .slideShow__cont--title {
@@ -186,4 +192,10 @@ a {
   opacity : .8;
   position: absolute;
   right   : 1em;
+}
+
+
+/* Media query for responsive */
+@media screen and (max-width: @slideShow-width) {
+
 }
