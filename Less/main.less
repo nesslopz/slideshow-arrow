@@ -59,6 +59,7 @@ body {
   padding      : .8em 0 .8em .8em; // Margenes internos
   width        : 35%; // Ancho de 35% referente al padre
   z-index      : 3; // Z index es posicionar los elementos atras o adelante, para poder aprovechar mejor el position: absolute de los elementos.
+  position: relative;
   &::after {
     // Todas estas propiedades son para crear mediante CSS las flechas
     border-bottom: 2.5em solid transparent;  // Borde inferior de la mitad de la altura del elemento transparente.
@@ -198,4 +199,50 @@ a {
 /* Media query for responsive */
 @media screen and (max-width: @slideShow-width) {
 
+  .slideShow {
+    box-shadow: none;
+    height    : auto;
+    max-width : auto;
+    overflow  : visible;
+    position  : relative;
+    width     : 100%;
+    display: table;
+    table-layout: fixed;
+  }
+  .slideShow__item {
+    display: table-cell;
+    width: auto;
+    // align-content: space-between; // el contenido se estira para ocupar el espacio disponible
+    // display      : flex; // Uso de Flexbox
+    // flex-flow    : row nowrap;
+  }
+  .slideShow__item +
+  .slideShow__item .slideShow__label {
+    border: none;
+  }
+  .slideShow__label {
+    background: fade(@labelColor, 40);
+    border: none;
+    padding: 0;
+    width: auto;
+    margin-top: 100%;
+    &::after {content: none}
+    &::before {
+      content: attr();
+      display: block;
+      width: 10px;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+  .slideShow__title,
+  .slideShow__desc {
+    font-size: 1em;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .slideShow_cont {
+    padding: .5em .8em;
+  }
 }
