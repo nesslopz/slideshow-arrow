@@ -431,11 +431,13 @@ body {
 .slideShow__label:hover::after {
   border-left-color: #bdc3c7;
 }
-.slideShow__label:active {
-  background: #95a5a6;
+.slideShow__label:active,
+.slideShow__label.selected {
+  background: rgba(207, 207, 207, 0.8);
 }
-.slideShow__label:active::after {
-  border-left-color: #95a5a6;
+.slideShow__label:active::after,
+.slideShow__label.selected::after {
+  border-left-color: rgba(207, 207, 207, 0.8);
 }
 .slideShow__title,
 .slideShow__desc {

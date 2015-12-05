@@ -80,10 +80,10 @@ body {
       border-left-color: @labelHover; // y la flecha también toma este color
     }
   }
-  &:active {
-    background: @labelSelect; // al dar click toma este color
+  &:active, &.selected {
+    background: fade(@labelSelect, 80); // al dar click toma este color
     &::after {
-      border-left-color: @labelSelect; // .. junto con la flecha
+      border-left-color: fade(@labelSelect, 80); // .. junto con la flecha
     }
   }
 }
