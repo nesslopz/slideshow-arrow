@@ -13,7 +13,7 @@ body {
  /* SlideShow Main Styles*/
 .slideShow {
   background: @itemBackground; // Fondo del slide general
-  box-shadow: #777 0 0 2px; // Pequeña sombra
+  box-shadow: #777 0 0 4px; // Pequeña sombra
   display   : block; // Display block, porque no estoy usando normalize
   margin    : 0 auto; // margen superior e inferior = 0, y centrado horizontal
   max-width : @slideShow-width; // tamaño máximo declarado por variable
@@ -31,7 +31,7 @@ body {
   align-content: stretch; // el contenido se estira para ocupar el espacio disponible
   display      : flex; // Uso de Flexbox
   flex-flow    : column wrap; // Organizado por columnas y con saltos de línea
-  input {
+  input[type=radio] {
     display: none; // Ocultamos el input de tipo radio
   }
 }
@@ -60,20 +60,41 @@ body {
   width        : 35%; // Ancho de 35% referente al padre
   z-index      : 3; // Z index es posicionar los elementos atras o adelante, para poder aprovechar mejor el position: absolute de los elementos.
   position: relative;
-  &::after {
-    // Todas estas propiedades son para crear mediante CSS las flechas
-    border-bottom: 2.5em solid transparent;  // Borde inferior de la mitad de la altura del elemento transparente.
-    border-left  : 2em solid fade(@labelColor, 80); // Borde izquierdo, esto es lo que se vé como flecha.
-    border-top   : 2.5em solid transparent; // Borde superior de la mitad de la altura del elemento transparente.
-    border-right: none; // Al no haber borde derecho, el izquierdo toma todo el ancho, formando la flecha.
-    box-sizing   : border-box; // Nos aseguramos que no sobrepase el ancho deseado.
-    content      : ''; // content: ''. Es completamente Necesario en los elementos before y after
-    font-size    : 1em; // Nos aseguramos que herede el tamaño del padre.
-    height       : 100%; // Alto de 100%, para que los bordes funcionen mejor
-    position     : absolute; // position absolute para posicionarlo referente a la etiqueta.
-    right        : -2em; // a la derecha a -2em que es el ancho del borde.
-    top          : 0; // Posicion 0 arriba
+  .arrow {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    div {
+      position: relative;
+      width: 50px;
+      height: 5em;
+      overflow: hidden;
+      div {
+        position: absolute;
+        left: -70px;
+        width: 5em;
+        height: 5em;
+
+        background: #008;
+        -webkit-transform: rotate(45deg);
+      }
+    }
   }
+  // &::after {
+  //   // Todas estas propiedades son para crear mediante CSS las flechas
+  //   border-bottom: 2.5em solid transparent;  // Borde inferior de la mitad de la altura del elemento transparente.
+  //   border-left  : 2em solid fade(@labelColor, 80); // Borde izquierdo, esto es lo que se vé como flecha.
+  //   border-top   : 2.5em solid transparent; // Borde superior de la mitad de la altura del elemento transparente.
+  //   border-right: none; // Al no haber borde derecho, el izquierdo toma todo el ancho, formando la flecha.
+  //   box-sizing   : border-box; // Nos aseguramos que no sobrepase el ancho deseado.
+  //   content      : ''; // content: ''. Es completamente Necesario en los elementos before y after
+  //   font-size    : 1em; // Nos aseguramos que herede el tamaño del padre.
+  //   height       : 100%; // Alto de 100%, para que los bordes funcionen mejor
+  //   position     : absolute; // position absolute para posicionarlo referente a la etiqueta.
+  //   right        : -2em; // a la derecha a -2em que es el ancho del borde.
+  //   top          : 0; // Posicion 0 arriba
+  // }
   &:hover {
     background: @labelHover; // al poner el mouse encima toma este color
     &::after {
