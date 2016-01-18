@@ -16,36 +16,33 @@ body {
   box-shadow: #777 0 0 4px; // Pequeña sombra
   display   : block; // Display block, porque no estoy usando normalize
   margin    : 0 auto; // margen superior e inferior = 0, y centrado horizontal
-  max-width : @slideShow-width; // tamaño máximo declarado por variable
+  // max-width : @slideShow-width; // tamaño máximo declarado por variable
   min-height: @slideShow-height; // tamaño mínimo de altura por variable, si lo sobrepasa por contenido no afecta
   overflow  : hidden; // lo que salga del cuadro general no es visible
   position  : relative; // Position relative para poder manipular objetos absolutos adentro
+
   ul { // Reset de la lista interna
-    list-style: none;
-    margin    : 0;
-    padding   : 0;
+    align-content: stretch; // el contenido se estira para ocupar el espacio disponible
+    display      : flex; // Uso de Flexbox
+    flex-flow    : column nowrap; // Organizado por columnas y con saltos de línea
+    list-style   : none;
+    margin       : 0;
+    padding      : 0;
   }
 }
 
 .slideShow__item { // cada Item, usando flexbox para los labels (flechas de la izquierda)
-  align-content: stretch; // el contenido se estira para ocupar el espacio disponible
-  display      : flex; // Uso de Flexbox
-  flex-flow    : column wrap; // Organizado por columnas y con saltos de línea
+  flex: 1 0 auto;
   input[type=radio] {
     display: none; // Ocultamos el input de tipo radio
   }
 }
-
-
 
 .slideShow__item +
 .slideShow__item .slideShow__label {
   border-top: 1px solid rgba(255,255,255,.3);
   // Un bonito efecto 3d en las etiquetas, solo el elemento precedido por uno igual obtiene un borde superior semitransparente blanco. Parte 1/2
 }
-
-
-
 
 .slideShow__label {
   background   : fade(@labelColor, 80); // fondo semitransparente (Fade es una propiedad de LESS que traduce a css en rgba)
@@ -54,12 +51,11 @@ body {
   box-sizing   : border-box; // Que sume los margenes internos y externos y los considere en el ancho
   color        : white; // Color de letra por default blanco.
   display      : block; // Cuestion de CSS, al no usar reset o normalize
-  flex         : none; // En este caso desactivo flex para que me respete el ancho de 35%
   min-height   : 5em; // Ancho mínimo de 5em, en caso de que no tenga el contenido suficiente
   padding      : .8em 0 .8em .8em; // Margenes internos
   width        : 35%; // Ancho de 35% referente al padre
   z-index      : 3; // Z index es posicionar los elementos atras o adelante, para poder aprovechar mejor el position: absolute de los elementos.
-  position: relative;
+  position     : relative;
   .arrow {
     position: absolute;
     left: 100%;
@@ -68,16 +64,17 @@ body {
     div {
       position: relative;
       width: 50px;
-      height: 5em;
+      height: 100%;
       overflow: hidden;
       div {
         position: absolute;
-        left: -70px;
-        width: 5em;
-        height: 5em;
-
-        background: #008;
-        -webkit-transform: rotate(45deg);
+        left: -55px;
+        top: 0;
+        width: 80px;
+        height: 80px;
+        background: fade(@labelColor, 80);
+        transform: rotate(45deg);
+        box-shadow: 0 3px 6px @labelColor;
       }
     }
   }
@@ -96,15 +93,15 @@ body {
   //   top          : 0; // Posicion 0 arriba
   // }
   &:hover {
-    background: @labelHover; // al poner el mouse encima toma este color
-    &::after {
-      border-left-color: @labelHover; // y la flecha también toma este color
+    background-color: @labelHover; // al poner el mouse encima toma este color
+    .arrow div div {
+      background-color: @labelHover; // y la flecha también toma este color
     }
   }
   &:active, &.selected {
-    background: fade(@labelSelect, 80); // al dar click toma este color
-    &::after {
-      border-left-color: fade(@labelSelect, 80); // .. junto con la flecha
+    background-color: fade(@labelSelect, 80); // al dar click toma este color
+    .arrow div div {
+      background-color: fade(@labelSelect, 80); // .. junto con la flecha
     }
   }
 }
@@ -114,8 +111,8 @@ body {
 // Aqui estilizamos las etiquetas con flecha
 .slideShow__title,
 .slideShow__desc {
+  color : @txtColor; // El color por medio de variable
   margin: 0; // El título y la descripción sin los márgenes por default
-  color: @txtColor; // El color por medio de variable
 }
 .slideShow__title {
   color         : white; // El color del título blanco
@@ -138,14 +135,12 @@ body {
   z-index: 1; // Traer al frente
 }
 .slideShow_cont {
-  // El contenido del tab, con posicion absoluta, referente al padre.
-  // Con bottom, left, right, y top a 0, ocupas el ancho y alto del elemento padre
   bottom      : 0;
   left        : 0;
   min-height  : @slideShow-height; // Alto mínimo el mismo al padre
   opacity     : 0; // Opacidad 0 por default
   padding-left: 40%; // Del lado izquierdo un margen interno del 40% (ancho del tab mas flecha)
-  position    : absolute;
+  position    : absolute; // El contenido del tab, con posicion absoluta, referente al padre.
   right       : 0;
   top         : 0;
   transition  : opacity 1s; // Transición en opacity con duración de 1 segundo
@@ -165,9 +160,12 @@ body {
 }
 
 .slideShow__content {
-  background: fade(@txtColor, 25);
-  color     : white;
-  padding   : .4em;
+  background   : fade(@txtColor, 45);
+  border-radius: 4px;
+  color        : white;
+  margin-right : .4em;
+  overflow     : hidden;
+  padding      : .4em;
 }
 
 // Personalized images for background
@@ -210,10 +208,9 @@ a {
   text-transform: uppercase;
 }
 .slideShow__action {
-  bottom  : 1em;
   opacity : .8;
-  position: absolute;
-  right   : 1em;
+  float: right;
+  margin-top: 1em;
 }
 
 
@@ -221,37 +218,47 @@ a {
 @media screen and (max-width: @slideShow-width) {
 
   .slideShow {
-    box-shadow  : none;
-    height      : auto;
-    display: block;
-    max-width   : auto;
-    max-height: 60vh;
-    overflow    : visible;
-    position    : relative;
-    width       : 100%;
+    align-items: flex-end;
+    box-shadow : none;
+    display    : flex;
+    height     : 400px;
+    max-height : auto;
+    max-width  : auto;
+    position   : relative;
     ul {
-    display     : table;
-    table-layout: fixed;
-    width: 100%;
-    }
-    li {
-      padding-top: 70%;
+      flex-flow: row nowrap;
+      width    : 100%;
     }
   }
   .slideShow__item {
-    display: table-cell;
   }
   .slideShow__item +
   .slideShow__item .slideShow__label {
     border: none;
   }
   .slideShow__label {
-    background: fade(@labelColor, 25);
-    border: none;
-    padding: 1em 0;
+    background: fade(@labelColor, 65);
+    border    : none;
     min-height: auto;
-    width: auto;
-    &::after {content: none}
+    padding   : 1em 0;
+    width     : auto;
+    .arrow {
+      left: 0;
+      right: 0;
+      top : -50px;
+      div {
+        height: 50px;
+        width : 100%;
+        div {
+          box-shadow: 0 -3px 6px darken(@labelColor,10);
+          background: fade(@labelColor, 65);
+          height    : 45px;
+          left      : 35%;
+          top       : 30px;
+          width     : 45px;
+        }
+      }
+    }
   }
   .slideShow__title,
   .slideShow__desc {
@@ -271,9 +278,5 @@ a {
   }
   .slideShow__cont--title {
     text-align: center;
-  }
-  .slideShow__action {
-    position: static;
-    float: right;
   }
 }
