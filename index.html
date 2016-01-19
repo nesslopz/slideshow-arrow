@@ -16,12 +16,12 @@
     <ul> <!-- In a unordered list -->
 
 
-      <li class="slideShow__item"> <!-- Each content is a list item -->
+      <li class="slideShow__item selected"> <!-- Each content is a list item -->
 
-        <label for="slideShow-item-1" class="slideShow__label selected">
+        <label for="slideShow-item-1" class="slideShow__label">
         <!-- The tab is a label refered to content by input id -->
           <header class="slideShow__header">
-            <h3 class="slideShow__title">The Title</h3> <!-- Title of tab -->
+            <h3 class="slideShow__title">The Title 1</h3> <!-- Title of tab -->
             <p class="slideShow__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p> <!-- Content of tab -->
           </header>
           <div class="arrow">
@@ -32,23 +32,28 @@
         </label>
 
           <input type="radio" name="slideShow-check" class="slideShow-item-check" id="slideShow-item-1" checked>
-          <div class="slideShow_cont background-image-1">
-            <h4 class="slideShow__cont--title"> <!-- Content Title -->
-              This is the content title
-            </h4>
-            <p class="slideShow__content"> <!-- Content -->
-              This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              <a href="#" class="btn slideShow__action">Click me!</a> <!--  Button -->
-            </p>
+          <div class="slideShow_cont">
+          <figure>
+            <img src="static/images/background/1.jpg" class="slideShow_cont--image" alt="">
+            <figcaption>
+              <h4 class="slideShow__cont--title"> <!-- Content Title -->
+                This is the content title 1
+              </h4>
+              <p class="slideShow__content"> <!-- Content -->
+                This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              </p>
+            </figcaption>
+          </figure>
+            <a href="#" class="btn slideShow__action">Click me!</a> <!--  Button -->
           </div>
       </li>
 
 
-      <li class="slideShow__item">
+      <li class="slideShow__item next">
 
         <label for="slideShow-item-2" class="slideShow__label">
           <header class="slideShow__header">
-            <h3 class="slideShow__title">The Title</h3>
+            <h3 class="slideShow__title">The Title 2</h3>
             <p class="slideShow__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
           </header>
           <div class="arrow">
@@ -59,17 +64,21 @@
         </label>
 
           <input type="radio" name="slideShow-check" class="slideShow-item-check" id="slideShow-item-2">
-          <div class="slideShow_cont background-image-2">
-          <h4 class="slideShow__cont--title">
-            This is the content title
-          </h4>
-          <p class="slideShow__content">
-            This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia non velit optio nam doloribus, illo expedita recusandae voluptate dicta distinctio, necessitatibus eos laboriosam provident illum itaque laudantium at blanditiis saepe?
+          <div class="slideShow_cont">
+          <figure>
+            <img src="static/images/background/2.jpg" class="slideShow_cont--image" alt="">
+            <figcaption>
+              <h4 class="slideShow__cont--title">
+                This is the content title 2
+              </h4>
+              <p class="slideShow__content">
+                This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia non velit optio nam doloribus, illo expedita recusandae voluptate dicta distinctio, necessitatibus eos laboriosam provident illum itaque laudantium at blanditiis saepe?
+              </p>
+            </figcaption>
+          </figure>
             <a href="#" class="btn slideShow__action">Click me!</a>
-          </p>
           </div>
-
       </li>
 
 
@@ -77,7 +86,7 @@
 
       <label for="slideShow-item-3" class="slideShow__label">
           <header class="slideShow__header">
-            <h3 class="slideShow__title">The Title</h3>
+            <h3 class="slideShow__title">The Title 3</h3>
             <p class="slideShow__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
           </header>
           <div class="arrow">
@@ -88,15 +97,20 @@
       </label>
 
           <input type="radio" name="slideShow-check" class="slideShow-item-check" id="slideShow-item-3">
-          <div class="slideShow_cont background-image-3">
-          <h4 class="slideShow__cont--title">
-            This is the content title
-          </h4>
-          <p class="slideShow__content">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, minus exercitationem laboriosam praesentium tenetur beatae architecto ex dolore consequuntur enim, nesciunt eum nobis doloremque ipsum quam quos? Voluptates, soluta maiores.
-            This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          <div class="slideShow_cont">
+          <figure>
+            <img src="static/images/background/3.jpg" class="slideShow_cont--image" alt="">
+            <figcaption>
+              <h4 class="slideShow__cont--title">
+                This is the content title 3
+              </h4>
+              <p class="slideShow__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, minus exercitationem laboriosam praesentium tenetur beatae architecto ex dolore consequuntur enim, nesciunt eum nobis doloremque ipsum quam quos? Voluptates, soluta maiores.
+                This is the content Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              </p>
+            </figcaption>
+          </figure>
             <a href="#" class="btn slideShow__action">Click me!</a>
-          </p>
           </div>
 
       </li>

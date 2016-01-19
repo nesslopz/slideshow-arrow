@@ -1,19 +1,16 @@
 (function() {
-   var Slideshow = document.getElementById('Slideshow') // Takes all DOM of Slideshow
-   var Elements = Slideshow.getElementsByTagName('li') // Takes li elements
-   var autoChange = true
+   var Slideshow = document.getElementById('Slideshow'), // Takes all DOM of Slideshow
+   Elements = Slideshow.getElementsByTagName('li'), // Takes li elements
+   autoPlay = true,
+   length = Elements.length
 
    function changeTab() {
-      if (autoChange) { // If variable autochange is 'true' it will change tab autom.
+      if (autoPlay) { // If variable autoPlay is 'true' it will change tab autom.
          var radio
-         for (var i=0; i < Elements.length; i++) { // It goes from first element to last
+         for (var i=0; i < length; i++) { // It goes from first element to last
             radio = Elements[i].getElementsByTagName('input')[0] // Takes radio
             if (radio.checked) { // if actual is checked
-               var w = i+1 // Actual + 1 is going to be selected
-               if (w == Elements.length) { w = 0 } // If i+1 > total elements, it goes 0
-               Elements[w].getElementsByTagName('input')[0].checked = true // check next
-               Elements[w].getElementsByTagName('label')[0].classList.toggle('selected') // next tab goes class checked
-               Elements[i].getElementsByTagName('label')[0].classList.toggle('selected') // actual tab remove checked
+               toggleClasses(i)
                return false
             }
          }
@@ -21,16 +18,36 @@
    }
 
    Slideshow.addEventListener("click", function(){ // On click in slideshow
-      autoChange = false // Variable autochange goes false, so, no more autoChange tabs
-      var Labels = Slideshow.getElementsByTagName('label'), radio
-      for (var i=0; i < Elements.length; i++) { // It goes from first element to last
+      autoPlay = false // Variable autoPlay goes false, so, no more autoPlay tabs
+      var radio
+      for (var i=0; i < length; i++) { // It goes from first element to last
          radio = Elements[i].getElementsByTagName('input')[0] // Takes radio
-         Elements[i].getElementsByTagName('label')[0].classList.remove('selected') // remove class 'selected' from all tabs
          if (radio.checked) { // if actual is checked
-            Elements[i].getElementsByTagName('label')[0].classList.toggle('selected') // clicked tab goes selected class
+            toggleClasses(i)
          }
       }
    })
 
-   setInterval(changeTab, 6000) // Repite una función cada x segundos (x1000)
+   function toggleClasses(c) { // c = current element
+      var p = c-1, // (p)rev
+      n = c+1 // (n)ext
+      if (n === length) n = 0
+      if (p < 0 ) p = length - 1
+         // console.log('Prev = ' + (p) + ' | Current = ' + (c) + ' | Next = ' + (n))
+      Elements[p].classList.toggle('prev') // Remove Previous class 'prev' to Previous tab
+      Elements[c].classList.toggle('selected') // actual tab remove 'selected' class
+      Elements[n].classList.toggle('next') // Remove 'next' class of next tab
+      if (autoPlay) {
+         Elements[c].classList.toggle('prev') // actual tab goes 'prev'
+         Elements[n].classList.toggle('selected') // Next tab goes 'selected'
+         Elements[n].getElementsByTagName('input')[0].checked = true
+         var f = n+1
+         if (f === length) f = 0
+         Elements[f].classList.toggle('next') // Remove Next class to Next tab
+      }
+   }
+
+   Elements[length-1].classList.toggle('prev')
+
+   setInterval(changeTab, 2000) // Repite una función cada x segundos (x1000)
 })()
